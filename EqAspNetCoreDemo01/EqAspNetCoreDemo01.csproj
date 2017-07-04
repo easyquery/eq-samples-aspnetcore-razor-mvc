@@ -18,8 +18,6 @@
     <PackageReference Include="Korzh.EasyQuery.Json" Version="4.0.0-rc1" />
     <PackageReference Include="Korzh.EasyQuery.Db" Version="4.0.0-rc1" />
     <PackageReference Include="Korzh.EasyQuery.AspNetCore" Version="4.0.0-rc1" />
-
-
   </ItemGroup>
 
 </Project>
