@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 
@@ -26,6 +27,7 @@ using Korzh.EasyQuery.Db;
 using EqAspNetCoreDemo.Services;
 using EqAspNetCoreDemo.Models;
 
+
 namespace EqAspNetCoreDemo
 {
     public class Startup
@@ -33,7 +35,7 @@ namespace EqAspNetCoreDemo
 
         private string _dataPath;
 
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
 
@@ -61,7 +63,7 @@ namespace EqAspNetCoreDemo
                 opts.Password.RequireDigit = false;
             })
              .AddRoles<IdentityRole>()
-             .AddDefaultUI(UIFramework.Bootstrap4)
+             .AddDefaultUI()
              .AddEntityFrameworkStores<AppDbContext>();
 
             services.AddDistributedMemoryCache();
@@ -75,16 +77,18 @@ namespace EqAspNetCoreDemo
             // add default reports generatir
             services.AddScoped<DefaultReportGenerator>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                    .AddNewtonsoftJson()
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             var appPathBase = Configuration["appPathBase"] ?? "/";
             app.UsePathBase(appPathBase);
 
-            if (env.IsDevelopment()) {
+            if (env.EnvironmentName == Environments.Development) {
                 app.UseDeveloperExceptionPage();
             }
             else {
@@ -104,8 +108,13 @@ namespace EqAspNetCoreDemo
             app.UseCookiePolicy();
 
             app.UseSession();
-            app.UseAuthentication();
 
+            app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            
             //The middleware which handles the Advances Search scenario
             app.UseEasyQuery(options => {
                 options.BuildQueryOnSync = true;
@@ -188,11 +197,16 @@ namespace EqAspNetCoreDemo
             //    options.UsePaging(10);
             //});
 
-            app.UseMvc(routes => {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+            
+
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapRazorPages();
+                endpoints.MapDefaultControllerRoute();
             });
+
 
             //Init demo database (if necessary)
             app.EnsureDbInitialized(Configuration, env);
