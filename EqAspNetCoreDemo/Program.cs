@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EqAspNetCoreDemo
+namespace EqDemo
 {
     public class Program
     {
