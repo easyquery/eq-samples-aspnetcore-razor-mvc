@@ -1,0 +1,14 @@
+name: Build
+
+on:
+  push:
+    branches: [main, beta, dev]
+  pull_request:
+    branches: [main, beta, dev]
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: easyquery/.github/.github/workflows/build-samples.yml@main
+    with:
+      solution: Samples.AspNetCore.sln
