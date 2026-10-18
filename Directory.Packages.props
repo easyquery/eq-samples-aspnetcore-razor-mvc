@@ -1,0 +1,32 @@
+<Project>
+  <!-- Package versions for every project in this repository (NuGet central package management). -->
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup Label="EasyQuery and EasyData">
+    <PackageVersion Include="EasyData.Exporters.ClosedXML" Version="1.6.0" />
+    <PackageVersion Include="EasyData.Exporters.PdfSharp" Version="1.6.0" />
+    <PackageVersion Include="Korzh.EasyQuery.AspNetCore" Version="7.5.0" />
+    <PackageVersion Include="Korzh.EasyQuery.DataExport" Version="7.5.0" />
+    <PackageVersion Include="Korzh.EasyQuery.Db" Version="7.5.0" />
+    <PackageVersion Include="Korzh.EasyQuery.EntityFrameworkCore.Identity" Version="7.5.0" />
+    <PackageVersion Include="Korzh.EasyQuery.EntityFrameworkCore.Relational" Version="7.5.0" />
+    <PackageVersion Include="Korzh.EasyQuery.Linq" Version="7.5.0" />
+    <PackageVersion Include="Korzh.EasyQuery.RazorUi" Version="7.5.0" />
+    <PackageVersion Include="Korzh.EasyQuery.SqLiteGate" Version="7.5.0" />
+    <PackageVersion Include="Korzh.EasyQuery.SqlServerGate" Version="7.5.0" />
+  </ItemGroup>
+  <ItemGroup Label="Other packages">
+    <PackageVersion Include="Korzh.DbUtils.Import" Version="1.4.3" />
+    <PackageVersion Include="Korzh.DbUtils.Sqlite" Version="1.4.3" />
+    <PackageVersion Include="Korzh.DbUtils.SqlServer" Version="1.4.3" />
+    <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.2" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.Data.SqlClient" Version="5.2.2" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.2" />
+    <PackageVersion Include="SQLitePCLRaw.lib.e_sqlite3" Version="2.1.12" />
+  </ItemGroup>
+</Project>
