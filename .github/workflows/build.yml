@@ -1,3 +1,9 @@
+# Builds this repository on every push and pull request with the shared workflow
+# easyquery/.github/.github/workflows/build-samples.yml, pinned to its v1 tag.
+# The check it reports, "build / build", is required on main and beta.
+#
+# The same build, locally (Windows, from the repository root):
+#   msbuild Samples.AspNetCore.sln -restore -p:Configuration=Release
 name: Build
 
 on:
@@ -9,6 +15,6 @@ on:
 
 jobs:
   build:
-    uses: easyquery/.github/.github/workflows/build-samples.yml@main
+    uses: easyquery/.github/.github/workflows/build-samples.yml@v1
     with:
       solution: Samples.AspNetCore.sln
