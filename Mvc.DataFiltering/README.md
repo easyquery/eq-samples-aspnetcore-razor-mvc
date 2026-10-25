@@ -18,8 +18,8 @@ Unlike most other samples, this one does **not** use the EasyQuery middleware (`
 | .NET | .NET 8 (`net8.0`) |
 | Platform | ASP.NET Core |
 | UI framework | **MVC** (controllers + Razor views) |
-| EasyQuery for .NET | **7.4.2** — `Korzh.EasyQuery.AspNetCore`, `Korzh.EasyQuery.Linq` |
-| EasyQuery.JS | **7.4.2**, loaded from CDN (`eq.enterprise.min.js`, `eq.core.min.css`) |
+| EasyQuery for .NET | **7.5.0** — `Korzh.EasyQuery.AspNetCore`, `Korzh.EasyQuery.Linq` |
+| EasyQuery.JS | **7.5.1**, loaded from CDN (`eq.enterprise.min.js`, `eq.core.min.css`) |
 | Query engine | LINQ — filters are applied to an `IQueryable<Order>` via `DynamicQuery()` |
 | Data model source | The `Order` class and its navigation properties (`UseEntity`) |
 | Database | SQLite through EF Core 8 (SQL Server is prepared in commented code) |

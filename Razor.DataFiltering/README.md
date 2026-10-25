@@ -18,8 +18,8 @@ Compare with [Mvc.DataFiltering](../Mvc.DataFiltering/README.md), which does the
 | .NET | .NET 8 (`net8.0`) |
 | Platform | ASP.NET Core |
 | UI framework | **Razor Pages** |
-| EasyQuery for .NET | **7.4.2** — `Korzh.EasyQuery.AspNetCore`, `Korzh.EasyQuery.Linq` (also `Korzh.EasyQuery.Db`, `Korzh.EasyQuery.SqLiteGate` for the "load model from DB" option below) |
-| EasyQuery.JS | **7.4.2**, loaded from CDN (`eq.enterprise.min.js`, `eq.core.min.css`) |
+| EasyQuery for .NET | **7.5.0** — `Korzh.EasyQuery.AspNetCore`, `Korzh.EasyQuery.Linq` (also `Korzh.EasyQuery.Db`, `Korzh.EasyQuery.SqLiteGate` for the "load model from DB" option below) |
+| EasyQuery.JS | **7.5.1**, loaded from CDN (`eq.enterprise.min.js`, `eq.core.min.css`) |
 | Query engine | LINQ over EF Core |
 | Data model source | The `Order` class and its navigation properties (`UseEntity`) |
 | EasyQuery API | Middleware — `app.MapEasyQuery(...)`, endpoint `/data-filtering` |
