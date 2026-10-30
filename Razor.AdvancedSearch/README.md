@@ -21,9 +21,9 @@ All EasyQuery settings are in one class — `Services/EasyQueryConfigurator.cs` 
 | .NET | **.NET 10** (`net10.0`) |
 | Platform | ASP.NET Core |
 | UI framework | **Razor Pages** |
-| EasyQuery for .NET | **7.5.0-rc04** (pre-release) — `Korzh.EasyQuery.AspNetCore`, `Korzh.EasyQuery.EntityFrameworkCore.Relational`, `Korzh.EasyQuery.DataExport`, `Korzh.EasyQuery.RazorUI`, `Korzh.EasyQuery.SqLiteGate`, `Korzh.EasyQuery.SqlServerGate` |
-| EasyData exporters | 1.6.0-rc01 — `EasyData.Exporters.PdfSharp` (PDF), `EasyData.Exporters.ClosedXML` (Excel) |
-| EasyQuery.JS | **7.5.0**, loaded from CDN (`eq.enterprise.min.js`, `eq.core.min.css`, `eq.view.min.css`); charts by Chart.js |
+| EasyQuery for .NET | **7.5.0** — `Korzh.EasyQuery.AspNetCore`, `Korzh.EasyQuery.EntityFrameworkCore.Relational`, `Korzh.EasyQuery.DataExport`, `Korzh.EasyQuery.RazorUI`, `Korzh.EasyQuery.SqLiteGate`, `Korzh.EasyQuery.SqlServerGate` |
+| EasyData exporters | 1.6.0 — `EasyData.Exporters.PdfSharp` (PDF), `EasyData.Exporters.ClosedXML` (Excel) |
+| EasyQuery.JS | **7.5.1**, loaded from CDN (`eq.enterprise.min.js`, `eq.core.min.css`, `eq.view.min.css`); charts by Chart.js |
 | Query engine | SQL (`EasyQueryManagerSql`) |
 | Data model source | EF Core `DbContext` (`UseDbContext<AppDbContext>`); an XML model file (`App_Data/NWindSQL.xml`) is included as an alternative |
 | EasyQuery API | Middleware — `app.MapEasyQuery()`, endpoint `/api/easyquery`, configured by `EasyQueryConfigurator` |

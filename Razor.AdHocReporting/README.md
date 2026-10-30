@@ -21,9 +21,9 @@ A variant of this sample with the client code written in TypeScript and bundled 
 | .NET | .NET 8 (`net8.0`) |
 | Platform | ASP.NET Core |
 | UI framework | **Razor Pages** |
-| EasyQuery for .NET | **7.4.2** — `Korzh.EasyQuery.AspNetCore`, `Korzh.EasyQuery.EntityFrameworkCore.Relational`, `Korzh.EasyQuery.EntityFrameworkCore.Identity`, `Korzh.EasyQuery.DataExport`, `Korzh.EasyQuery.RazorUi`, `Korzh.EasyQuery.SqLiteGate`, `Korzh.EasyQuery.SqlServerGate` |
-| EasyData exporters | 1.5.10 — `EasyData.Exporters.PdfSharp` (PDF), `EasyData.Exporters.ClosedXML` (Excel) |
-| EasyQuery.JS | **7.4.2**, loaded from CDN (`eq.enterprise.min.js`, `eq.core.min.css`); charts by Google Charts |
+| EasyQuery for .NET | **7.5.0** — `Korzh.EasyQuery.AspNetCore`, `Korzh.EasyQuery.EntityFrameworkCore.Relational`, `Korzh.EasyQuery.EntityFrameworkCore.Identity`, `Korzh.EasyQuery.DataExport`, `Korzh.EasyQuery.RazorUi`, `Korzh.EasyQuery.SqLiteGate`, `Korzh.EasyQuery.SqlServerGate` |
+| EasyData exporters | 1.6.0 — `EasyData.Exporters.PdfSharp` (PDF), `EasyData.Exporters.ClosedXML` (Excel) |
+| EasyQuery.JS | **7.5.1**, loaded from CDN (`eq.enterprise.min.js`, `eq.core.min.css`); charts by Google Charts |
 | Query engine | SQL (`UseSqlManager()`) |
 | Data model source | EF Core `DbContext` (`UseDbContextWithoutIdentity<AppDbContext>`) |
 | EasyQuery API | Middleware — `app.MapEasyQuery(...)`, endpoint `/api/adhoc-reporting` |
