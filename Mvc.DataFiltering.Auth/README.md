@@ -17,8 +17,8 @@ Everything else is the same as in the basic sample: the filter bar, the full-tex
 | .NET | .NET 8 (`net8.0`) |
 | Platform | ASP.NET Core |
 | UI framework | **MVC** (controllers + Razor views); Razor Pages only for the Identity UI |
-| EasyQuery for .NET | **7.4.2** — `Korzh.EasyQuery.AspNetCore`, `Korzh.EasyQuery.Linq` |
-| EasyQuery.JS | **7.4.2**, loaded from CDN (`eq.enterprise.min.js`, `eq.core.min.css`) |
+| EasyQuery for .NET | **7.5.0** — `Korzh.EasyQuery.AspNetCore`, `Korzh.EasyQuery.Linq` |
+| EasyQuery.JS | **7.5.1**, loaded from CDN (`eq.enterprise.min.js`, `eq.core.min.css`) |
 | Query engine | LINQ — filters are applied to an `IQueryable<Order>` via `DynamicQuery()` |
 | Data model source | The `Order` class and its navigation properties (`UseEntity`) |
 | Authentication | ASP.NET Core Identity (EF Core stores, default UI) |

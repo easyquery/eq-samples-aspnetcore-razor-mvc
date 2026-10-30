@@ -14,9 +14,9 @@ What the application does: logged-in users get a list of their own reports and c
 | .NET | .NET 8 (`net8.0`) |
 | Platform | ASP.NET Core |
 | UI framework | **Razor Pages** + TypeScript (bundled with Rollup) |
-| EasyQuery for .NET | **7.4.2** — `Korzh.EasyQuery.AspNetCore`, `Korzh.EasyQuery.EntityFrameworkCore.Relational`, `Korzh.EasyQuery.EntityFrameworkCore.Identity`, `Korzh.EasyQuery.DataExport`, `Korzh.EasyQuery.RazorUi`, `Korzh.EasyQuery.SqLiteGate`, `Korzh.EasyQuery.SqlServerGate` |
-| EasyData exporters | 1.5.10 — `EasyData.Exporters.PdfSharp` (PDF), `EasyData.Exporters.ClosedXML` (Excel) |
-| EasyQuery.JS | **7.4.2** from npm (`@easyquery/*` 7.4.2, `@easydata/*` 1.5.11); charts by Google Charts |
+| EasyQuery for .NET | **7.5.0** — `Korzh.EasyQuery.AspNetCore`, `Korzh.EasyQuery.EntityFrameworkCore.Relational`, `Korzh.EasyQuery.EntityFrameworkCore.Identity`, `Korzh.EasyQuery.DataExport`, `Korzh.EasyQuery.RazorUi`, `Korzh.EasyQuery.SqLiteGate`, `Korzh.EasyQuery.SqlServerGate` |
+| EasyData exporters | 1.6.0 — `EasyData.Exporters.PdfSharp` (PDF), `EasyData.Exporters.ClosedXML` (Excel) |
+| EasyQuery.JS | **7.5.1** from npm (`@easyquery/*` 7.5.1, `@easydata/*` 1.6.0); charts by Google Charts |
 | TypeScript tooling | TypeScript 5.9, Rollup 4 (`rollup.config.js`) |
 | Query engine | SQL (`UseSqlManager()`) |
 | Data model source | EF Core `DbContext` (`UseDbContextWithoutIdentity<AppDbContext>`) |

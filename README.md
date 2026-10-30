@@ -22,7 +22,8 @@ to .NET applications. The samples in this repository show it on ASP.NET Core Raz
 
 ## Quick start
 
-1. Get the code: `git clone https://github.com/easyquery/eq-samples-aspnetcore-razor-mvc.git`, or **Code → Download ZIP** on this page.
+1. Get the code: [download the ZIP](https://github.com/easyquery/eq-samples-aspnetcore-razor-mvc/archive/refs/heads/main.zip),
+   or `git clone https://github.com/easyquery/eq-samples-aspnetcore-razor-mvc.git`.
 2. Open `Samples.AspNetCore.sln` in Visual Studio 2022 (17.2 or later).
 3. Set the sample you want as the startup project and run it. Or, from the command line, `cd` into a sample folder and run `dotnet run`; each sample's README has the exact steps.
 
@@ -38,16 +39,18 @@ EasyQuery version, change it there.
 
 ## License key
 
-EasyQuery needs a license key. A free 30-day trial key takes about a minute to get:
-[register on korzh.com](https://korzh.com/easyquery?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc#get-started).
+You don't need one to start. On the first run the sample shows a **No license** dialog: enter your
+email, then the code we send to it, and you get a free 30-day trial key on the spot. The key is saved to `EasyQuery.lck`; restart the sample to apply it.
 
-Put it into `appsettings.json` of the app that serves the EasyQuery API:
+Already have a key? Put it into `appsettings.json` of the app that serves the EasyQuery API and the dialog won't appear:
 
 ```json
 "EasyQuery": {
-  "LicenseKey": "your trial key goes here"
+  "LicenseKey": "your key goes here"
 }
 ```
+
+Ready to buy? See the [licensing options on korzh.com](https://korzh.com/easyquery?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc#licensing).
 
 ## Other platforms
 
