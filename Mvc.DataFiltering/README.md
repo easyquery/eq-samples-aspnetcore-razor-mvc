@@ -75,9 +75,103 @@ Try it: add a condition in the filter bar (e.g. *Customer → Country is equal t
 
 ## Next steps
 
+### Connect the sample to your database
+
+The sample filters one entity, `Order`, read through EF Core's `AppDbContext`. Unlike most
+samples, the entity is named in several places — the controller and the list view — so all of
+them change:
+
+1. **Connection string.** `appsettings.json` → `ConnectionStrings:EqDemoDb`.
+2. **EF Core provider.** In `Program.cs`, replace `options.UseSqlite(...)` with the provider for
+   your database — for SQL Server, the commented `options.UseSqlServer(...)` line (the package is
+   already referenced). For another database, add its EF Core 8 provider package.
+3. **Your entities.** Replace the Northwind classes in `Models/NWind/` and the `DbSet`s in
+   `Data/AppDbContext.cs` with yours. To generate them from the database (the project already
+   references `Microsoft.EntityFrameworkCore.Tools`; the example is for SQL Server):
+
+   ```bash
+   dotnet tool install --global dotnet-ef
+   dotnet ef dbcontext scaffold "<your connection string>" Microsoft.EntityFrameworkCore.SqlServer --output-dir Models/MyDb --namespace EqDemo.Models --context AppDbContext --context-dir Data --context-namespace EqDemo --no-onconfiguring --force
+   ```
+
+   The scaffolding overwrites `Data/AppDbContext.cs`. Delete `Models/NWind/` afterwards, and the
+   build then shows every place that still refers to `Order`, `Customer` or `Employee`.
+4. **The controller.** In `Controllers/OrderController.cs`:
+   * `EasyQueryManagerLinq<Order>` → your entity type;
+   * the `options.UseEntity(...)` query in the constructor, and the same query at the start of
+     `ApplyQueryFilter` → your `DbSet` with the related data to filter by (`.Include(...)`);
+   * `FullTextSearchQuery<Order>` and `DynamicQuery<Order>` → your entity type;
+   * the `Filter` of `FullTextSearchOptions` picks the Northwind fields to search in: rewrite it
+     for yours, or remove it to search in all text fields.
+5. **The result list.** `Views/Order/_OrderListPartial.cshtml` is a regular Razor view of
+   `IPagedList<Order>`: change the model type and the columns.
+6. **Demo seeding.** Remove `app.EnsureDbInitialized(configuration, app.Environment);` from
+   `Program.cs`. `Data/DbInitializeExtensions.cs`, `App_Data/EqDemoData.zip` and the
+   `Korzh.DbUtils.*` packages can go with it.
+
+The page keeps its address, `/data-filtering`: the route comes from `[Route("data-filtering")]` on
+the controller, not from its name.
+
+### Add EasyQuery to your own project
+
+These steps add a filter bar to a list in an existing ASP.NET Core MVC application (.NET 8 or
+later) that reads the list through EF Core. The list itself stays yours: a partial view rendered
+on the server.
+
+1. **Install the packages.**
+
+   ```bash
+   dotnet add package Korzh.EasyQuery.AspNetCore
+   dotnet add package Korzh.EasyQuery.Linq
+   ```
+
+   The sample's versions are in [`Directory.Packages.props`](../Directory.Packages.props). Keep the
+   EasyQuery.JS version in the page's CDN links (`cdn.korzh.com/eq/7.5.1/...`) in line with them.
+2. **Add the server side.** Register the services in `Program.cs`:
+
+   ```csharp
+   builder.Services.AddEasyQuery();
+   ```
+
+   There is no `MapEasyQuery`: the EasyQuery API is a controller. Copy
+   [`Controllers/OrderController.cs`](Controllers/OrderController.cs) and adapt it to your entity
+   as in step 4 above. Keep the `[Route("data-filtering")]` attribute (or change it together with
+   `useEndpoint(...)` in the view) and the five actions: they are the endpoints the filter bar
+   calls. Remove `using Newtonsoft.Json;` — it isn't used.
+3. **Add the UI.** Copy the two views to your controller's view folder:
+   * [`Views/Order/Orders.cshtml`](Views/Order/Orders.cshtml) — the page with the filter bar, the
+     text search, the Load/Save buttons and the EasyQuery.JS initialization. Its stylesheet is in a
+     `Styles` section, which the layouts of the standard templates don't render: either move the
+     `<link>` and the `<style>` block out of the section, or add
+     `@await RenderSectionAsync("Styles", required: false)` to the `<head>` of your `_Layout.cshtml`.
+     In the script, remove the `.setAppName(...)` and `.useBackend(...)` lines — they tell the
+     library that it runs in this sample;
+   * [`Views/Order/_OrderListPartial.cshtml`](Views/Order/_OrderListPartial.cshtml) — the list.
+
+   The list uses EasyQuery tag helpers (`<eq-highlight-text>`, `<eq-page-navigator>`): add them to
+   `Views/_ViewImports.cshtml`:
+
+   ```cshtml
+   @using Korzh.EasyQuery.AspNetCore
+   @addTagHelper *, Korzh.EasyQuery.AspNetCore
+   ```
+
+4. **Connect your data.** That's the entity type and the two queries in the controller (step 4
+   above). Captions and visibility come from attributes on your classes — see
+   [Tune how properties appear in the filter](#tune-how-properties-appear-in-the-filter).
+5. **Choose where queries are stored.** The controller uses `FileQueryStore("App_Data")`: the
+   Save/Load buttons keep one query, `LastQuery`, as a file in `App_Data/dm-<model ID>/queries`.
+6. **Set the license key**, as described in [License key](../README.md#license-key). The view
+   passes the key to the browser itself (`useEnterprise('@Korzh.EasyQuery.AspNetCore.JSLicense.Key')`),
+   so it must be in `appsettings.json` or user secrets.
+
+More in the docs: [From a sample to your own project](https://korzh.com/easyquery/docs/getting-started/from-sample-to-your-own-project).
+
+### Change the sample
+
 Below are the most common things to change and where to do it.
 
-### Switch to SQL Server (uncomment)
+#### Move the demo database to SQL Server (uncomment)
 
 The SQL Server variant is already in the code, commented out:
 
@@ -87,7 +181,7 @@ The SQL Server variant is already in the code, commented out:
 
 The `Microsoft.EntityFrameworkCore.SqlServer` and `Korzh.DbUtils.SqlServer` packages are already referenced.
 
-### Filter a different entity or include more related data
+#### Filter a different entity or include more related data
 
 The data model is built from the entity type returned by `options.UseEntity(...)` in the `OrderController` constructor. Every navigation property you `Include` becomes available in the filter bar:
 
@@ -105,7 +199,7 @@ options.UseEntity(_ =>
 
 Remember to add the same `Include` calls to the `IQueryable` built in `ApplyQueryFilter`, and update `_OrderListPartial.cshtml` if you want to display the new data. To filter another list (e.g. Customers), change the generic type of `EasyQueryManagerLinq<T>` and the `UseEntity`/`ApplyQueryFilter` queries accordingly.
 
-### Tune how properties appear in the filter
+#### Tune how properties appear in the filter
 
 The loader reads the attributes on the model classes (`Models/NWind/*.cs`):
 
@@ -113,7 +207,7 @@ The loader reads the attributes on the model classes (`Models/NWind/*.cs`):
 * `[EqListValueEditor]` — shows a list of values for the property instead of a text box (see `Employee.Country`).
 * `[EqEntityAttr(UseInConditions = false)]` — hides a property from the filter; `[EqEntityAttr(false)]` excludes it from the model completely. `[EqEntity(...)]` does the same for a whole class.
 
-### Add a fixed (hidden) filter
+#### Add a fixed (hidden) filter
 
 Since the controller owns the `IQueryable`, any regular LINQ condition added in `ApplyQueryFilter` is combined with the user's filter and is never visible in the UI — handy for multi-tenant or "only my records" restrictions:
 
@@ -125,7 +219,7 @@ var orders = _dbContext.Orders
           .AsQueryable();
 ```
 
-### Open the page with a predefined filter
+#### Open the page with a predefined filter
 
 To restore the last saved query automatically when the page opens, add two options to `viewOptions` in `Views/Order/Orders.cshtml` (this is exactly what `Mvc.DataFiltering.Auth` does):
 
@@ -140,7 +234,7 @@ var viewOptions = {
 
 To ship a default filter, save one with the **Save Query** button and keep the resulting file from `App_Data` (queries are stored in a `dm-<model ID>/queries` sub-folder).
 
-### Change the full-text search
+#### Change the full-text search
 
 `FullTextSearchOptions` in `ApplyQueryFilter` decides which fields are searched:
 
@@ -148,18 +242,18 @@ To ship a default filter, save one with the **Save Query** button and keep the r
 * `Depth` — how deep to follow navigation properties (2 by default).
 * `OrderBy` / `IsDescendingOrder` — sort the result by some property.
 
-### Change paging or the result markup
+#### Change paging or the result markup
 
 * Page size — the second argument of `orders.ToPagedList(_eqManager.Chunk.Page, 15)`.
 * Columns and layout — `Views/Order/_OrderListPartial.cshtml` is a regular Razor view; `<eq-highlight-text>` highlights the search text in a value.
 
-### Store queries somewhere else
+#### Store queries somewhere else
 
 `options.UseQueryStore(...)` in the controller defines the storage for Save/Load Query:
 
 * XML files instead of JSON: `new FileQueryStore(new FileQueryStoreSettings { DataPath = "App_Data", FileFormat = "xml" })`.
 * A database table, per user — implement `IQueryStore`; see `Services/DbQueryStore.cs` in the [Mvc.DataFiltering.Auth](../Mvc.DataFiltering.Auth/README.md) sample.
 
-### Use the EasyQuery middleware instead of a controller
+#### Use the EasyQuery middleware instead of a controller
 
 If you don't need a server-rendered result list, the whole `OrderController` can be replaced with one `app.MapEasyQuery(...)` call and EasyQuery.JS's own result grid. See the [Razor.DataFiltering](../Razor.DataFiltering/README.md) sample for this approach.

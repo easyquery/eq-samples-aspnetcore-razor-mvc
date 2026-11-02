@@ -88,7 +88,54 @@ and just reload the page after each change. If you don't want `npm` to run on ev
 
 ## Next steps
 
-### Change the report view options
+### Connect the sample to your database
+
+The server side is the same as in Razor.AdHocReporting, so follow
+[its steps](../Razor.AdHocReporting/README.md#connect-the-sample-to-your-database): a second
+`DbContext` for your data, `options.UseDbContext<...>()` in `MapEasyQuery`, Northwind and the demo
+seeding out of `AppDbContext`, the seed reports out of `App_Data/Seed`. Two names differ here:
+
+* the users-and-reports database is `ConnectionStrings:EqDemoSqLite` (not `EqDemoDb`) — in
+  `appsettings.json`, `Program.cs` and `Data/DbInitializeExtensions.cs`;
+* the scaffolding command needs `Microsoft.EntityFrameworkCore.Tools`, which this project already
+  references, and a first build — which here also runs `npm install` and `npm run build`.
+
+### Add EasyQuery to your own project
+
+The server part — packages, `Program.cs`, the report storage — is the same as in
+[Razor.AdHocReporting](../Razor.AdHocReporting/README.md#add-easyquery-to-your-own-project); do
+steps 1–4 there. Leave out `UseSessionCache()` and the `StoreModelInCache` / `StoreQueryInCache`
+options if you don't use sessions: this sample works without them. The difference is the UI,
+which comes from npm instead of the CDN:
+
+1. **Install the npm packages** in the folder of your project:
+
+   ```bash
+   npm install @easyquery/core @easyquery/ui @easyquery/enterprise @easydata/core @easydata/ui
+   ```
+
+   Use the versions from this sample's [`package.json`](package.json): `@easyquery/*` in line with
+   the `Korzh.EasyQuery.*` NuGet packages, `@easydata/*` with the `EasyData.*` ones.
+2. **Add the page script.** Copy [`ts/adhoc-reporting.ts`](ts/adhoc-reporting.ts) and
+   [`ts/styles.js`](ts/styles.js). In the script, remove the `.setAppName(...)` and
+   `.useBackend(...)` lines — they tell the library that it runs in this sample — and keep
+   `.useEndpoint(...)` in line with `options.Endpoint` on the server.
+3. **Bundle it.** If your front end has no build yet, copy [`rollup.config.js`](rollup.config.js),
+   [`tsconfig.json`](tsconfig.json) and the `devDependencies` and `scripts` of `package.json`. The
+   output is `wwwroot/js/adhoc-reporting.js` and `wwwroot/css/adhoc-reporting.css`. To build it with
+   every `dotnet build`, copy the `PreBuild` target from the `.csproj` too. With a bundler of your
+   own (Vite, webpack, esbuild…), just point it at `ts/adhoc-reporting.ts`.
+4. **Add the page.** Copy [`Pages/Index.cshtml`](Pages/Index.cshtml) as e.g. `Pages/Reports.cshtml`,
+   with an `[Authorize]` page model. It includes the two bundles and Google Charts. The same notes
+   as for the Razor sample apply to it: the `Styles` section, Bootstrap 4 attributes and the
+   `isDefaultUser` check, which here disables the ⚙ menu for the sample's demo user.
+5. **Set the license key**, as described in [License key](../README.md#license-key).
+
+More in the docs: [From a sample to your own project](https://korzh.com/easyquery/docs/getting-started/from-sample-to-your-own-project).
+
+### Change the sample
+
+#### Change the report view options
 
 All client-side settings are in `ts/adhoc-reporting.ts` (typed as `ReportViewOptions`):
 
@@ -115,12 +162,12 @@ const viewOptions: ReportViewOptions = {
 
 Rebuild (`npm run build`, or just `dotnet build`) after changing it.
 
-### Update EasyQuery.JS or use pre-release packages
+#### Update EasyQuery.JS or use pre-release packages
 
 * Change the `@easyquery/*` and `@easydata/*` versions in `package.json` and run `npm install`. Keep them in line with the `Korzh.EasyQuery.*` NuGet versions in the `.csproj`.
 * To get pre-release builds from the Korzh MyGet feed, uncomment the two registry lines in `.npmrc`.
 
-### Who can manage reports
+#### Who can manage reports
 
 This sample decides it in `Pages/Index.cshtml`: the ⚙ menu is disabled for the default user (`isDefaultUser`) and enabled for everyone else. The server side is protected separately by `options.UseDefaultAuthProvider(...)` in `Program.cs`: by default *New / Save / Remove* require the `eq-manager` role, which every newly registered user gets. To change the server rule, uncomment one of the lines there:
 
@@ -131,7 +178,7 @@ options.UseDefaultAuthProvider((provider) => {
 });
 ```
 
-### Everything else — same as Razor.AdHocReporting
+#### Everything else — same as Razor.AdHocReporting
 
 The server part is identical, so these recipes from the [Razor.AdHocReporting README](../Razor.AdHocReporting/README.md#next-steps) apply here as well:
 
