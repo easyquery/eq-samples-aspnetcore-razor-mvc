@@ -9,12 +9,12 @@ to .NET applications. The samples in this repository show it on ASP.NET Core Raz
 
 | Sample | Scenario | Stack |
 |---|---|---|
-| [Advanced search](Razor.AdvancedSearch) | Advanced search | ASP.NET Core 10 · Razor Pages · C# |
-| [Ad-hoc reporting](Razor.AdHocReporting) | Ad-hoc reporting | ASP.NET Core 8 · Razor Pages · C# |
-| [Ad-hoc reporting (TypeScript)](RazorTypeScript.AdHocReporting) | Ad-hoc reporting | ASP.NET Core 8 · Razor Pages + TypeScript · C#, TypeScript |
-| [Data filtering](Razor.DataFiltering) | Data filtering | ASP.NET Core 8 · Razor Pages · C# |
-| [Data filtering](Mvc.DataFiltering) | Data filtering | ASP.NET Core 8 · MVC · C# |
-| [Data filtering with authentication](Mvc.DataFiltering.Auth) | Data filtering | ASP.NET Core 8 · MVC · C# |
+| [Razor.AdvancedSearch](Razor.AdvancedSearch) | Advanced search | ASP.NET Core 10 · Razor Pages · C# |
+| [Razor.AdHocReporting](Razor.AdHocReporting) | Ad-hoc reporting | ASP.NET Core 8 · Razor Pages · C# |
+| [RazorTypeScript.AdHocReporting](RazorTypeScript.AdHocReporting) | Ad-hoc reporting | ASP.NET Core 8 · Razor Pages + TypeScript · C#, TypeScript |
+| [Razor.DataFiltering](Razor.DataFiltering) | Data filtering | ASP.NET Core 8 · Razor Pages · C# |
+| [Mvc.DataFiltering](Mvc.DataFiltering) | Data filtering | ASP.NET Core 8 · MVC · C# |
+| [Mvc.DataFiltering.Auth](Mvc.DataFiltering.Auth) | Data filtering with authentication | ASP.NET Core 8 · MVC · C# |
 
 * **Advanced search.** A full-page query builder: users pick the columns, combine any conditions they need, run the query and work with the result — sorting, paging and export.
 * **Ad-hoc reporting.** A basic ad-hoc reporting tool: users keep a list of reports, set up the columns and conditions of each one, and see the result as a table (with grouping and totals) or a chart.
@@ -50,16 +50,29 @@ Already have a key? Put it into `appsettings.json` of the app that serves the Ea
 }
 ```
 
-Ready to buy? See the [licensing options on korzh.com](https://korzh.com/easyquery?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc#licensing).
+Ready to buy? See the [licensing options on korzh.com](https://korzh.com/easyquery?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc#asp-core-edition).
 
 ## Next steps
 
-The sample runs on its own demo database. From here there are two ways to get to your own data.
+### Need a complete reporting application, not a page?
+
+The samples show one EasyQuery page at a time. If what you're after is a whole self-service
+reporting portal, start from [EasyReport Starter Kit (ERSK)](https://korzh.com/easy-report-starter-kit?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc)
+instead. It's a ready-made ASP.NET Core solution built on EasyQuery, with its full source code
+and a Clean Architecture layout, that you rebrand and extend:
+
+* users create, edit and share reports themselves, in the visual query builder;
+* results as tables, charts and pivot tables, with grouping and totals;
+* user management with roles and guest access;
+* several database connections (SQL Server, MySQL, PostgreSQL, Oracle), multi-tenancy, and
+  scheduled reports sent by email as Excel, PDF or CSV (Pro edition).
+
+See it in action at [easy.report](https://easy.report), the live demo of ERSK.
 
 ### Connect a sample to your database
 
-The quickest way to see EasyQuery on your data: keep the sample as it is and swap the database
-under it. Every sample reaches its data through EF Core — an `AppDbContext` with the Northwind
+The sample runs on its own demo database. Here is how you can connect it to your own data
+instead: keep the sample as it is and swap the database under it. Every sample reaches its data through EF Core — an `AppDbContext` with the Northwind
 entities in `Models/NWind/` — and builds the EasyQuery data model from it, so the change is mostly
 about that `DbContext` and its connection:
 
@@ -95,7 +108,9 @@ To get the same page into an application you already have, repeat what the sampl
 step:
 
 1. **Install the packages**: `Korzh.EasyQuery.AspNetCore`, plus the one for the query engine
-   (`.EntityFrameworkCore.Relational` for SQL, `.Linq` for LINQ) and, if you need it, export.
+   (`.EntityFrameworkCore.Relational` for SQL, `.Linq` for LINQ) and, if users should export
+   the result, the exporters: `Korzh.EasyQuery.DataExport` (CSV and HTML for Excel),
+   `EasyData.Exporters.ClosedXML` (Excel files), `EasyData.Exporters.PdfSharp` (PDF).
 2. **Add the server side**: `AddEasyQuery()` in the services and `MapEasyQuery(...)` in the
    request pipeline of `Program.cs` — or, in the MVC data filtering samples, a controller.
 3. **Add the UI**: copy the page or view that holds the EasyQuery widgets, with its styles.
