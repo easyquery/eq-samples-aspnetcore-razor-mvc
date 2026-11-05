@@ -339,3 +339,11 @@ In `Pages/Index.cshtml`, `viewOptions` of the `AdvancedSearchView`:
 #### The built-in Advanced Search page and its settings (uncomment)
 
 `Program.cs` sets `Korzh.EasyQuery.RazorUI.Pages.AdvancedSearch.ExportFormats` and has a commented `...ShowSqlPanel = true;` line. These static settings belong to the ready-made page that the `Korzh.EasyQuery.RazorUI` package adds to the app at `/EasyQuery/AdvancedSearch` — not to this sample's own `Pages/Index.cshtml`, which has its own markup. Uncomment the line and open `/EasyQuery/AdvancedSearch` to see the generated SQL under the result.
+
+## Links
+
+* [Live demo of advanced search](https://demo.korzh.com/easyquery-asp-net-core-razor/advanced-search?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc)
+* [All samples for ASP.NET Core MVC/Razor](../README.md)
+* [All EasyQuery samples](https://github.com/easyquery)
+* [EasyQuery home page](https://korzh.com/easyquery?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc)
+* Want a full-scale solution for data management and ad-hoc reporting? Try [EasyReport Starter Kit](https://korzh.com/easy-report-starter-kit?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc).

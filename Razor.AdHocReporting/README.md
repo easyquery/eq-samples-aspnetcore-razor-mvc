@@ -345,3 +345,11 @@ In `Pages/Index.cshtml`, `viewOptions` of the `ReportView`:
 * `serverExporters: ['pdf', 'excel', 'excel-html', 'csv']` — the export formats. `pdf` and `excel` must be registered on the server with `.AddDataExporter<...>()` in `Program.cs`.
 * `result.showChart` — turn the chart off; `result.paging.pageSize` — rows per page.
 * `syncReportOnChange` — set to `false` to save reports only on an explicit *Save*.
+
+## Links
+
+* [Live demo of ad-hoc reporting](https://demo.korzh.com/easyquery-asp-net-core-razor/adhoc-reporting?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc)
+* [All samples for ASP.NET Core MVC/Razor](../README.md)
+* [All EasyQuery samples](https://github.com/easyquery)
+* [EasyQuery home page](https://korzh.com/easyquery?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc)
+* Want a full-scale solution for data management and ad-hoc reporting? Try [EasyReport Starter Kit](https://korzh.com/easy-report-starter-kit?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc).

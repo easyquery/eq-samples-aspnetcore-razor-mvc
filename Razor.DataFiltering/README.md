@@ -267,3 +267,11 @@ app.MapEasyQuery(options => {
 ```
 
 Note that with the SQL manager a query needs result columns, and the data-filtering view has no UI for picking them — load a predefined query with columns on start (see above), or use the Advanced Search view as in the [Razor.AdvancedSearch](../Razor.AdvancedSearch/README.md) sample, which is built around a SQL model.
+
+## Links
+
+* [Live demo of data filtering](https://demo.korzh.com/easyquery-asp-net-core-razor/data-filtering?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc)
+* [All samples for ASP.NET Core MVC/Razor](../README.md)
+* [All EasyQuery samples](https://github.com/easyquery)
+* [EasyQuery home page](https://korzh.com/easyquery?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc)
+* Want a full-scale solution for data management and ad-hoc reporting? Try [EasyReport Starter Kit](https://korzh.com/easy-report-starter-kit?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc).

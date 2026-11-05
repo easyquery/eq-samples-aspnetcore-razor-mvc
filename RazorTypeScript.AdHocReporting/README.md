@@ -188,3 +188,11 @@ The server part is identical, so these recipes from the [Razor.AdHocReporting RE
 * tuning the DbContext-based model, the seed reports, and the default user.
 
 Two server-side differences to be aware of: this project does not register the session cache (`UseSessionCache()`, `StoreModelInCache`, `StoreQueryInCache`) and does not set up CORS.
+
+## Links
+
+* [Live demo of ad-hoc reporting](https://demo.korzh.com/easyquery-asp-net-core-razor/adhoc-reporting?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc)
+* [All samples for ASP.NET Core MVC/Razor](../README.md)
+* [All EasyQuery samples](https://github.com/easyquery)
+* [EasyQuery home page](https://korzh.com/easyquery?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc)
+* Want a full-scale solution for data management and ad-hoc reporting? Try [EasyReport Starter Kit](https://korzh.com/easy-report-starter-kit?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc).

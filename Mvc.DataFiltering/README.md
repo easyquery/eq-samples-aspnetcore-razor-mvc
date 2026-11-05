@@ -257,3 +257,11 @@ To ship a default filter, save one with the **Save Query** button and keep the r
 #### Use the EasyQuery middleware instead of a controller
 
 If you don't need a server-rendered result list, the whole `OrderController` can be replaced with one `app.MapEasyQuery(...)` call and EasyQuery.JS's own result grid. See the [Razor.DataFiltering](../Razor.DataFiltering/README.md) sample for this approach.
+
+## Links
+
+* [Live demo of data filtering](https://demo.korzh.com/easyquery-asp-net-core-razor/data-filtering?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc)
+* [All samples for ASP.NET Core MVC/Razor](../README.md)
+* [All EasyQuery samples](https://github.com/easyquery)
+* [EasyQuery home page](https://korzh.com/easyquery?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc)
+* Want a full-scale solution for data management and ad-hoc reporting? Try [EasyReport Starter Kit](https://korzh.com/easy-report-starter-kit?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc).
