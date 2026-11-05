@@ -85,13 +85,90 @@ To reset the database, stop the application and delete the `eqdemo-auth-sqlite.d
 
 ## Next steps
 
-### Switch to SQL Server (uncomment)
+### Connect the sample to your database
+
+`AppDbContext` holds the Northwind tables, the users and roles (it's an `IdentityDbContext`) and
+the saved queries (`UserQueries`). Leave users and queries in the sample's SQLite file and give
+your data a `DbContext` of its own:
+
+1. **Connection string.** Add one for your database to `ConnectionStrings` in `appsettings.json`,
+   e.g. `"MyDb": "..."`. `EqDemoDb` stays as the database of users and queries.
+2. **Your `DbContext`.** Generate it from your database (build the project once first; the example
+   is for SQL Server) and register it in `Program.cs`:
+
+   ```bash
+   dotnet tool install --global dotnet-ef
+   dotnet ef dbcontext scaffold "<your connection string>" Microsoft.EntityFrameworkCore.SqlServer --output-dir Models/MyDb --namespace EqDemo.Models.MyDb --context MyDataContext --context-dir Data --context-namespace EqDemo --no-onconfiguring
+   ```
+
+   ```csharp
+   builder.Services.AddDbContext<MyDataContext>(options =>
+       options.UseSqlServer(configuration.GetConnectionString("MyDb")));
+   ```
+
+3. **The controller.** In `Controllers/OrderController.cs`, take `MyDataContext` instead of
+   `AppDbContext` in the constructor and change the entity — `EasyQueryManagerLinq<Order>`, the two
+   `Orders.Include(...)` queries, the `FullTextSearchOptions` filter — exactly as in
+   [Mvc.DataFiltering](../Mvc.DataFiltering/README.md#connect-the-sample-to-your-database), step 4.
+   `DbQueryStore` keeps using `AppDbContext`. Then change the list in `Views/Order/_OrderListPartial.cshtml`.
+4. **Remove Northwind from `AppDbContext`.** Delete the `NWind` region and the `OrderDetail` lines
+   of `OnModelCreating` in `Data/AppDbContext.cs`, then the `Models/NWind/` folder. Keep
+   `UserQueries` and its key.
+5. **Demo seeding.** In `Data/DbInitializeExtensions.cs`, replace everything from the seeding-marker
+   comment down to the end of the `if (context.Database.EnsureCreated()) { ... }` block with a single
+   `context.Database.EnsureCreated();`, so the role and the default user are still created. Delete
+   the old `eqdemo-auth-sqlite.db*` files, if any.
+
+### Add EasyQuery to your own project
+
+This is the [Mvc.DataFiltering](../Mvc.DataFiltering/README.md#add-easyquery-to-your-own-project)
+filter bar for an application that already has users (ASP.NET Core Identity): follow the steps
+there, and add the per-user query storage:
+
+1. **Protect the controller** with `[Authorize]`, as `OrderController` here is.
+2. **Store queries per user.** Copy [`Services/DbQueryStore.cs`](Services/DbQueryStore.cs) and
+   [`Models/UserQuery.cs`](Models/UserQuery.cs), change their namespaces, and in `DbQueryStore`
+   replace `AppDbContext` with the `DbContext` of your users. Add the queries to that context,
+   with the composite key that lets every user have their own `LastQuery`:
+
+   ```csharp
+   public DbSet<UserQuery> UserQueries { get; set; }
+
+   protected override void OnModelCreating(ModelBuilder modelBuilder)
+   {
+       base.OnModelCreating(modelBuilder);
+       modelBuilder.Entity<UserQuery>().HasKey(q => new { q.Id, q.OwnerId });
+   }
+   ```
+
+   Create the table (`ApplicationDbContext` is the name the project templates give the Identity
+   context):
+
+   ```bash
+   dotnet ef migrations add AddUserQueries --context ApplicationDbContext
+   dotnet ef database update --context ApplicationDbContext
+   ```
+
+   In the controller's constructor, use the new store: `options.UseQueryStore(_ => new DbQueryStore(services));`.
+3. **Load the user's last query on start**, if you want to: `loadQueryOnStart: true` and
+   `defaultQueryId: 'LastQuery'` in the `viewOptions` of `Views/Order/Orders.cshtml`.
+
+What not to copy: the Identity setup itself — `AddDefaultIdentity(...)` with its password rules,
+`Areas/Identity/`, `_LoginPartial.cshtml`, and the default user and the `eq-manager` role in
+`Data/DbInitializeExtensions.cs`. That's this sample's own login, not part of EasyQuery; your
+application already has one.
+
+More in the docs: [From a sample to your own project](https://korzh.com/easyquery/docs/getting-started/from-sample-to-your-own-project).
+
+### Change the sample
+
+#### Move the demo database to SQL Server (uncomment)
 
 1. `appsettings.json` — comment the SQLite `EqDemoDb` connection string and uncomment the `(localdb)\\MSSQLLocalDB` one (or put your own).
 2. `Program.cs` — replace `options.UseSqlite(...)` with the commented `options.UseSqlServer(...)` line.
 3. `Data/DbInitializeExtensions.cs` — do the same inside `DbInitializer.Create(...)`.
 
-### Don't load the query automatically / use another default query
+#### Don't load the query automatically / use another default query
 
 In `Views/Order/Orders.cshtml`:
 
@@ -106,7 +183,7 @@ var viewOptions = {
 
 The **Save Query** / **Load Query** handlers at the end of the same file also use the `LastQuery` ID — change them together.
 
-### Restrict the data each user can see
+#### Restrict the data each user can see
 
 `DbQueryStore` separates the *queries* by user, but all users filter the same Orders. To limit the *data*, add a regular LINQ condition in `ApplyQueryFilter` (`OrderController.cs`) — it's combined with the user's filter and never shown in the UI:
 
@@ -122,19 +199,27 @@ var orders = _dbContext.Orders
 
 (The demo Northwind `Employee` has no link to Identity users — the condition above is a pattern to adapt, not something that works out of the box.)
 
-### Store queries differently
+#### Store queries differently
 
 `options.UseQueryStore(...)` in the `OrderController` constructor selects the storage:
 
 * Back to files (shared by all users): `options.UseQueryStore(_ => new FileQueryStore("App_Data"));`
 * Your own storage — implement `IQueryStore` the way `DbQueryStore` does. Its `ApplyUserGuard()` method is the one place where queries are scoped to a user; change it if queries should be shared by a team, a tenant, etc.
 
-### Change the account rules
+#### Change the account rules
 
 * Password rules and cookie lifetime — the `AddDefaultIdentity<IdentityUser>(...)` and `ConfigureApplicationCookie(...)` calls in `Program.cs`.
 * The default user — the `_defaultUserEmail` / `_defaultUserPassword` constants in `Data/DbInitializeExtensions.cs`.
 * New users are added to the `eq-manager` role on registration (`Areas/Identity/Pages/Account/Register.cshtml.cs`). This sample doesn't restrict anything by that role, but the ad-hoc reporting samples do — see [Razor.AdHocReporting](../Razor.AdHocReporting/README.md).
 
-### Everything from the basic sample
+#### Everything from the basic sample
 
 Filtering another entity, tuning the model with attributes, changing the full-text search fields, paging and the result markup work exactly as described in the [Mvc.DataFiltering README](../Mvc.DataFiltering/README.md#next-steps).
+
+## Links
+
+* [Live demo of data filtering](https://demo.korzh.com/easyquery-asp-net-core-razor/data-filtering?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc)
+* [All samples for ASP.NET Core MVC/Razor](../README.md)
+* [All EasyQuery samples](https://github.com/easyquery)
+* [EasyQuery home page](https://korzh.com/easyquery?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc)
+* Need a full reporting app? Try [EasyReport Starter Kit](https://korzh.com/easy-report-starter-kit?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc)
