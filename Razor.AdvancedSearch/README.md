@@ -50,30 +50,26 @@ All EasyQuery settings are in one class — `Services/EasyQueryConfigurator.cs` 
 ## How to start
 
 1. Install the [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0).
-2. Put your EasyQuery license key into `appsettings.json`:
-
-   ```json
-   "EasyQuery": {
-     "LicenseKey": "<your key>"
-   }
-   ```
-
-   or, better, into user secrets (run in the project folder):
-
-   ```bash
-   dotnet user-secrets set "EasyQuery:LicenseKey" "<your key>"
-   ```
-
-   You can get a trial key in the [Korzh.com Client's Area](https://account.korzh.com) after registering an account.
-
-3. Run the project:
+2. Run the project:
 
    ```bash
    dotnet run
    ```
 
    or open `../Samples.AspNetCore.sln` and start `EqDemo.AspNetCoreRazor.AdvancedSearch`.
-4. Open https://localhost:5001 (or http://localhost:5000).
+3. Open https://localhost:5001 (or http://localhost:5000).
+
+You don't need a license key to start. On the first run the page shows a **No license** dialog:
+enter your email, then the code we send to it, and you get a free 30-day trial key. The key is
+saved to `EasyQuery.lck`; restart the sample to apply it. Already a customer? Put your key into
+user secrets (run in the project folder) and the dialog won't appear:
+
+```bash
+dotnet user-secrets set "EasyQuery:LicenseKey" "<your key>"
+```
+
+or into `"EasyQuery": { "LicenseKey": "<your key>" }` in `appsettings.json`. See
+[License key](../README.md#license-key) for more.
 
 On the first run the application creates the SQLite database `eqdemo-sqlite.db` in the project folder and fills it with the demo data from `App_Data/EqDemoData.zip`. To reset the data, stop the app and delete the `eqdemo-sqlite.db*` files.
 
