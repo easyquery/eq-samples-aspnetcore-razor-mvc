@@ -54,20 +54,8 @@ Ready to buy? See the [licensing options on korzh.com](https://korzh.com/easyque
 
 ## Next steps
 
-### Need a complete reporting application, not a page?
-
-The samples show one EasyQuery page at a time. If what you're after is a whole self-service
-reporting portal, start from [EasyReport Starter Kit (ERSK)](https://korzh.com/easy-report-starter-kit?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc)
-instead. It's a ready-made ASP.NET Core solution built on EasyQuery, with its full source code
-and a Clean Architecture layout, that you rebrand and extend:
-
-* users create, edit and share reports themselves, in the visual query builder;
-* results as tables, charts and pivot tables, with grouping and totals;
-* user management with roles and guest access;
-* several database connections (SQL Server, MySQL, PostgreSQL, Oracle), multi-tenancy, and
-  scheduled reports sent by email as Excel, PDF or CSV (Pro edition).
-
-See it in action at [easy.report](https://easy.report), the live demo of ERSK.
+Once a sample runs, here is where to go from it: connect it to your own database, add EasyQuery
+to an application you already have, or start from a complete reporting application instead.
 
 ### Connect a sample to your database
 
@@ -132,6 +120,21 @@ The exact packages, code and files differ from sample to sample:
 For the details behind each step, see [From a sample to your own project](https://korzh.com/easyquery/docs/getting-started/from-sample-to-your-own-project)
 and [Getting started for ASP.NET Core + MVC or Razor Pages](https://korzh.com/easyquery/docs/getting-started/asp-net-core/aspnet-core-razor)
 in the documentation.
+
+### Need a complete reporting application, not a page?
+
+The samples show one EasyQuery page at a time. If what you're after is a whole self-service
+reporting portal, start from [EasyReport Starter Kit (ERSK)](https://korzh.com/easy-report-starter-kit?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc)
+instead. It's a ready-made ASP.NET Core solution built on EasyQuery, with its full source code
+and a Clean Architecture layout, that you rebrand and extend:
+
+* users create, edit and share reports themselves, in the visual query builder;
+* results as tables, charts and pivot tables, with grouping and totals;
+* user management with roles and guest access;
+* several database connections (SQL Server, MySQL, PostgreSQL, Oracle), multi-tenancy, and
+  scheduled reports sent by email as Excel, PDF or CSV (Pro edition).
+
+See it in action at [easy.report](https://easy.report), the live demo of ERSK.
 
 ## Other platforms
 
