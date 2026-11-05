@@ -352,4 +352,4 @@ In `Pages/Index.cshtml`, `viewOptions` of the `ReportView`:
 * [All samples for ASP.NET Core MVC/Razor](../README.md)
 * [All EasyQuery samples](https://github.com/easyquery)
 * [EasyQuery home page](https://korzh.com/easyquery?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc)
-* Want a full-scale solution for data management and ad-hoc reporting? Try [EasyReport Starter Kit](https://korzh.com/easy-report-starter-kit?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc).
+* Need a full reporting app? Try [EasyReport Starter Kit](https://korzh.com/easy-report-starter-kit?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc)

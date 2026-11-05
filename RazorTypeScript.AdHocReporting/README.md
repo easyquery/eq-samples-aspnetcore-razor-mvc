@@ -195,4 +195,4 @@ Two server-side differences to be aware of: this project does not register the s
 * [All samples for ASP.NET Core MVC/Razor](../README.md)
 * [All EasyQuery samples](https://github.com/easyquery)
 * [EasyQuery home page](https://korzh.com/easyquery?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc)
-* Want a full-scale solution for data management and ad-hoc reporting? Try [EasyReport Starter Kit](https://korzh.com/easy-report-starter-kit?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc).
+* [EasyReport Starter Kit: ready-made, self-service reporting solution for ASP.NET Core](https://korzh.com/easy-report-starter-kit?utm_source=github&utm_medium=sample&utm_campaign=eq-samples-aspnetcore-razor-mvc)
