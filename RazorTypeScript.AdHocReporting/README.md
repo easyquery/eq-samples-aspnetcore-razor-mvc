@@ -11,7 +11,7 @@ What the application does: logged-in users get a list of their own reports and c
 
 | | |
 |---|---|
-| .NET | .NET 8 (`net8.0`) |
+| .NET | .NET 10 (`net10.0`) |
 | Platform | ASP.NET Core |
 | UI framework | **Razor Pages** + TypeScript (bundled with Rollup) |
 | EasyQuery for .NET | **7.5.0** — `Korzh.EasyQuery.AspNetCore`, `Korzh.EasyQuery.EntityFrameworkCore.Relational`, `Korzh.EasyQuery.EntityFrameworkCore.Identity`, `Korzh.EasyQuery.DataExport`, `Korzh.EasyQuery.RazorUi`, `Korzh.EasyQuery.SqLiteGate`, `Korzh.EasyQuery.SqlServerGate` |
@@ -40,7 +40,7 @@ What the application does: logged-in users get a list of their own reports and c
 
 ## How to start
 
-1. Install the [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) (or later) and [Node.js](https://nodejs.org/) (LTS; `npm` must be in `PATH`).
+1. Install the [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) (or later) and [Node.js](https://nodejs.org/) (LTS; `npm` must be in `PATH`).
 2. Put your EasyQuery license key(s) into `appsettings.json`:
 
    ```json
