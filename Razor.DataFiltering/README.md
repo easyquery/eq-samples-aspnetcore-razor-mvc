@@ -15,7 +15,7 @@ Compare with [Mvc.DataFiltering](../Mvc.DataFiltering/README.md), which does the
 
 | | |
 |---|---|
-| .NET | .NET 8 (`net8.0`) |
+| .NET | .NET 10 (`net10.0`) |
 | Platform | ASP.NET Core |
 | UI framework | **Razor Pages** |
 | EasyQuery for .NET | **7.5.0** — `Korzh.EasyQuery.AspNetCore`, `Korzh.EasyQuery.Linq` (also `Korzh.EasyQuery.Db`, `Korzh.EasyQuery.SqLiteGate` for the "load model from DB" option below) |
@@ -38,7 +38,7 @@ Compare with [Mvc.DataFiltering](../Mvc.DataFiltering/README.md), which does the
 
 ## How to start
 
-1. Install the [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) (or later).
+1. Install the [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) (or later).
 2. Put your EasyQuery license key into `appsettings.json`:
 
    ```json

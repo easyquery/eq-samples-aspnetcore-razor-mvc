@@ -1,12 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>EqDemo.AspNetCoreRazor.DataFiltering</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <!-- Transitive pin: EF Core 10.0.x resolves Microsoft.Data.SqlClient 6.1.7, whose
+         System.Security.Cryptography.Pkcs 9.0.11 is vulnerable (NU1902/NU1903). Can be dropped once
+         EF Core depends on Microsoft.Data.SqlClient 6.1.8 or later. -->
+    <PackageReference Include="Microsoft.Data.SqlClient" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
   </ItemGroup>
   <ItemGroup>

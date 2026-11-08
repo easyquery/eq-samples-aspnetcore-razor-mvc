@@ -10,11 +10,11 @@ to .NET applications. The samples in this repository show it on ASP.NET Core Raz
 | Sample | Scenario | Stack |
 |---|---|---|
 | [Razor.AdvancedSearch](Razor.AdvancedSearch) | Advanced search | ASP.NET Core 10 · Razor Pages · C# |
-| [Razor.AdHocReporting](Razor.AdHocReporting) | Ad-hoc reporting | ASP.NET Core 8 · Razor Pages · C# |
-| [RazorTypeScript.AdHocReporting](RazorTypeScript.AdHocReporting) | Ad-hoc reporting | ASP.NET Core 8 · Razor Pages + TypeScript · C#, TypeScript |
-| [Razor.DataFiltering](Razor.DataFiltering) | Data filtering | ASP.NET Core 8 · Razor Pages · C# |
-| [Mvc.DataFiltering](Mvc.DataFiltering) | Data filtering | ASP.NET Core 8 · MVC · C# |
-| [Mvc.DataFiltering.Auth](Mvc.DataFiltering.Auth) | Data filtering with authentication | ASP.NET Core 8 · MVC · C# |
+| [Razor.AdHocReporting](Razor.AdHocReporting) | Ad-hoc reporting | ASP.NET Core 10 · Razor Pages · C# |
+| [RazorTypeScript.AdHocReporting](RazorTypeScript.AdHocReporting) | Ad-hoc reporting | ASP.NET Core 10 · Razor Pages + TypeScript · C#, TypeScript |
+| [Razor.DataFiltering](Razor.DataFiltering) | Data filtering | ASP.NET Core 10 · Razor Pages · C# |
+| [Mvc.DataFiltering](Mvc.DataFiltering) | Data filtering | ASP.NET Core 10 · MVC · C# |
+| [Mvc.DataFiltering.Auth](Mvc.DataFiltering.Auth) | Data filtering with authentication | ASP.NET Core 10 · MVC · C# |
 
 * **Advanced search.** A full-page query builder: users pick the columns, combine any conditions they need, run the query and work with the result — sorting, paging and export.
 * **Ad-hoc reporting.** A basic ad-hoc reporting tool: users keep a list of reports, set up the columns and conditions of each one, and see the result as a table (with grouping and totals) or a chart.
